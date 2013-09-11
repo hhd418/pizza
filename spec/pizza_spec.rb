@@ -78,13 +78,15 @@ describe Pizza::Pie do
   end
   
   describe '#late?' do
-    it 'returns true if it is past the delivery time.' do
+    it 'returns true if it is past the delivery time' do
       pizza = Pizza::Pie.new
-      pizza.deliver!(now = Time.now)
-      expect(pizza.delivery_time).to eq(now + 30*60)
-      pizza.delivery_time = 30*70
-
+      pizza.delivery_time = Time.now - (30)
       expect(pizza.late?).to eq(true)
+    end
+    it 'returns false if it is not past the deliver time' do
+      pizza = Pizza::Pie.new
+      pizza.delivery_time = Time.now + (30)
+      expect(pizza.late?).to eq(false)
     end
   end
 

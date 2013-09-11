@@ -19,6 +19,11 @@ module Pizza
     def deliver!(now = Time.now)
       @delivery_time = now + (30*60)
     end
+
+    def late?
+      Time.now > @delivery_time
+    end
+
   end
 
   class Topping
