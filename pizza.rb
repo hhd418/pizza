@@ -11,6 +11,10 @@ module Pizza
 
       # !@toppings.any? { |x| !x.vegetarian }
     end
+
+    def add_topping(topping)
+      @toppings << topping
+    end
   end
 
   class Topping
