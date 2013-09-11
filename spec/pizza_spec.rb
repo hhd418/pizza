@@ -4,6 +4,7 @@ require 'rspec'
 require_relative '../pizza'
 
 describe Pizza::Pie do
+  
   describe '.initialize' do
     it 'records all of the toppings' do
       toppings = [
@@ -21,6 +22,7 @@ describe Pizza::Pie do
       expect(pizza.toppings.first.name).to eq('cheese')
     end
   end
+
   describe '#vegetarian?' do
     context 'when all toppings are vegetarian' do
       let(:toppings) do
@@ -48,6 +50,7 @@ describe Pizza::Pie do
       end
     end
   end
+
   describe '#add_topping' do
     it 'adds a topping to the @toppings array' do
       toppings = [
@@ -64,13 +67,27 @@ describe Pizza::Pie do
       expect(pizza.toppings[2].name).to eq('olives')
     end
   end
+
   describe '#deliver!' do
     it 'delivers a pizza in thirty minutes' do
       pizza = Pizza::Pie.new
       pizza.deliver!(now = Time.now)
+      
       expect(pizza.delivery_time).to eq(now + 30*60)
     end
   end
+  
+  describe '#late?' do
+    it 'returns true if it is past the delivery time.' do
+      pizza = Pizza::Pie.new
+      pizza.deliver!(now = Time.now)
+      expect(pizza.delivery_time).to eq(now + 30*60)
+      pizza.delivery_time = 30*70
+
+      expect(pizza.late?).to eq(true)
+    end
+  end
+
 end 
 
 describe Pizza::Topping do
