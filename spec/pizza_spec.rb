@@ -31,7 +31,7 @@ describe Pizza::Pie do
 
       expect(pizza.vegetarian?).to eq(true)
     end
-    it 'returns fals is any toppings are not vegetarian' do
+    it 'returns false is any toppings are not vegetarian' do
       toppings = [
         Pizza::Topping.new('mushrooms', vegetarian: true),
         Pizza::Topping.new('peperoni')
