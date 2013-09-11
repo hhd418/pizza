@@ -7,11 +7,8 @@ module Pizza
     end
 
     def vegetarian?
-      if @toppings.any? { |x| x.vegetarian == false }
-        return false
-      else
-        return true
-      end
+      !@toppings.any? { |x| !x.vegetarian }
+
       # !@toppings.any? { |x| !x.vegetarian }
     end
   end

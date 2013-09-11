@@ -21,24 +21,47 @@ describe Pizza::Pie do
       expect(pizza.toppings.first.name).to eq('cheese')
     end
   end
-  describe '.vegetarian?' do
-    it 'returns true only if all toppings are vegetarian' do
-      toppings = [
-        Pizza::Topping.new('mushrooms', vegetarian: true),
-        Pizza::Topping.new('olives', vegetarian: true)
-      ]
-      pizza = Pizza::Pie.new(toppings)
+  describe '#vegetarian?' do
+    context 'when all toppings are vegetarian' do
+      let(:toppings) do
+        [
+          Pizza::Topping.new('mushrooms', vegetarian: true),
+          Pizza::Topping.new('olives', vegetarian: true)
+        ]
+      end
 
-      expect(pizza.vegetarian?).to eq(true)
+      it 'returns true' do
+        pizza = Pizza::Pie.new(toppings)
+        expect(pizza.vegetarian?).to eq(true)
+      end
     end
-    it 'returns false is any toppings are not vegetarian' do
+    context 'when at least one topping is not vegetarian' do
+      let(:toppings) do
+        [
+         Pizza::Topping.new('mushrooms', vegetarian: true),
+         Pizza::Topping.new('peperoni') 
+        ]
+      end
+      it 'returns false' do
+        pizza = Pizza::Pie.new(toppings)
+        expect(pizza.vegetarian?).to eq(false)
+      end
+    end
+  end
+  describe '#add_topping' do
+    it 'adds a topping to the @toppings array' do
       toppings = [
         Pizza::Topping.new('mushrooms', vegetarian: true),
-        Pizza::Topping.new('peperoni')
+        Pizza::Topping.new('pepperoni')
       ]
       pizza = Pizza::Pie.new(toppings)
 
-      expect(pizza.vegetarian?).to eq(false)
+      olives = Pizza::Topping.new('olives', vegetarian: true)
+
+      pizza.add_topping(olives)
+
+      expect(pizza.toppings.size).to eq(3)
+      expect(pizza.toppings[2].name).to eq('olives')
     end
   end
 end 
